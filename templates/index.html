@@ -1,51 +1,5 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    {% if session["logged_in"] %}
-    <div style="margin-top: 100px;" class="container">
-    
-    <h3>Todo</h3>
-    <hr>
-
-    <form action="/add" method="post">
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" name="title" placeholder="Todo Giriniz..." aria-label="Recipient's username" aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" type="submit">Todo Ekle...</button>
-                </div>
-              </div>
-        </form>
-    <hr>
-
-     <table class="table table-striped table-dark">
-            <thead>
-              <tr>
-                <th scope="col">Todo</th>
-                <th scope="col">Durum</th>
-                <th scope="col">Güncelle</th>
-                <th scope="col">Sil</th>
-              </tr>
-              <tbody>
-              {% for todo in todos  %}
-                <tr>
-                <td>{{todo.title}}</td>
-                {% if todo.complete == False %}
-                <td>Yapılmadı</td>
-                {% else %}
-                <td>Yapıldı</td>
-                {% endif %}
-                <td>Güncelle</td>
-                <td>sil</td>
-                </tr>
-              {% endfor %}
-              </tbody>
-            </thead>
-          </table>
-    
-    
-    
-    </div>
-    {% else %}
-
-    {% endif %}
+   
 {% endblock  %}

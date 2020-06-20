@@ -45,14 +45,14 @@ mysql = MySQL(app)
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return redirect(url_for("todo"))
 @app.route("/todo")
 def todo():
     cursor = mysql.connection.cursor()
     sorgu = "SELECT * FROM todo WHERE author = %s"
     cursor.execute(sorgu,(session["username"],))
     todos = cursor.fetchall()
-    return render_template("index.html",todos=todos)
+    return render_template("todo.html",todos=todos)
 
 @app.route("/register",methods=["GET","POST"])
 def register():
@@ -100,13 +100,13 @@ def login():
                  flash("Başarıyla Giriş Yaptınız","success")
                  session["logged_in"] = True
                  session["username"] = username
-                 return redirect(url_for("index"))
+                 return redirect(url_for("todo"))
             else:
                 flash("Şifrenizi Yanlış Girdiniz","danger")
-                return redirect("login")
+                return redirect(url_for("login"))
         else:
             flash("Kullanıcı Adını Yanlış Girdiniz","danger")
-            return redirect("login")
+            return redirect(url_for("login"))
     else:
         return render_template("login.html",form=form)
 
@@ -127,6 +127,33 @@ def add():
     mysql.connection.commit()
     cursor.close()
     return redirect(url_for("index"))
+
+#Durum Güncelleme
+@app.route("/update/<string:id>")
+def update(id):
+    sorgu = "Select * FROM todo WHERE id = %s"
+    cursor = mysql.connection.cursor()
+    cursor.execute(sorgu,(id,))
+    data = cursor.fetchone()
+    if data["complete"] == False:
+        sorgu2 = "UPDATE todo SET complete = %s WHERE id = %s"
+        cursor.execute(sorgu2,(True,id))
+        mysql.connection.commit()
+        return redirect(url_for("todo"))
+    else:
+        sorgu3 = "UPDATE todo SET complete = %s WHERE id = %s"
+        cursor.execute(sorgu3,(False,id))
+        mysql.connection.commit()
+        return redirect(url_for("todo"))
+
+#todo silme
+@app.route("/delete/<string:id>")
+def delete(id):
+    sorgu = "DELETE FROM todo WHERE id = %s"
+    cursor = mysql.connection.cursor()
+    cursor.execute(sorgu,(id,))
+    mysql.connection.commit()
+    return redirect(url_for("todo"))
 
 if __name__ == "__main__":
     app.run(debug=True) 

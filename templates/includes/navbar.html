@@ -4,8 +4,11 @@
         
         {% if session["logged_in"] %}
         <a class="btn btn-dark" href="/logout"><h3>Çıkış Yap</h3></a>
+        <hr>
+        <a class="btn btn-dark" href="/todo"><h3>Todo</h3></a>
         {% else %}
         <a class="btn btn-dark" href="/register"><h3>Üye Ol</h3></a>
+        <hr>
         <a class="btn btn-dark" href="/login"><h3>Giriş Yap</h3></a>
         {% endif %}
       </div>
