@@ -1,0 +1,18 @@
+<div class="pos-f-t">
+    <div class="collapse" id="navbarToggleExternalContent">
+      <div class="bg-dark p-4">
+        
+        {% if session["logged_in"] %}
+        <a class="btn btn-dark" href="/logout"><h3>Çıkış Yap</h3></a>
+        {% else %}
+        <a class="btn btn-dark" href="/register"><h3>Üye Ol</h3></a>
+        <a class="btn btn-dark" href="/login"><h3>Giriş Yap</h3></a>
+        {% endif %}
+      </div>
+    </div>
+    <nav class="navbar navbar-dark bg-dark">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </nav>
+  </div>
