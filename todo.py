@@ -45,7 +45,7 @@ mysql = MySQL(app)
 
 @app.route("/")
 def index():
-    return redirect(url_for("todo"))
+    return render_template("index.html")
 @app.route("/todo")
 def todo():
     cursor = mysql.connection.cursor()
@@ -126,7 +126,7 @@ def add():
     cursor.execute(sorgu,(title,False,session["username"]))
     mysql.connection.commit()
     cursor.close()
-    return redirect(url_for("index"))
+    return redirect(url_for("todo"))
 
 #Durum Güncelleme
 @app.route("/update/<string:id>")
